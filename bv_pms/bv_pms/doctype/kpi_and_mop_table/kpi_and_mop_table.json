@@ -1,0 +1,89 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-11 15:41:55.164032",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kpi",
+  "mop",
+  "kpi_weightage",
+  "q1",
+  "q2",
+  "q3",
+  "q4",
+  "kra"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "kpi",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "KPI",
+   "options": "KPI"
+  },
+  {
+   "columns": 2,
+   "fieldname": "mop",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "MOP"
+  },
+  {
+   "columns": 1,
+   "fieldname": "kpi_weightage",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "KPI Weightage"
+  },
+  {
+   "columns": 1,
+   "fieldname": "q1",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Q1"
+  },
+  {
+   "columns": 1,
+   "fieldname": "q2",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Q2"
+  },
+  {
+   "columns": 1,
+   "fieldname": "q3",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Q3"
+  },
+  {
+   "columns": 1,
+   "fieldname": "q4",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Q4"
+  },
+  {
+   "fieldname": "kra",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "KRA",
+   "options": "KRA"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-08-16 13:38:01.324200",
+ "modified_by": "Administrator",
+ "module": "Bv Pms",
+ "name": "KPI and Mop Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

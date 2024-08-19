@@ -1,0 +1,151 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format: Temp-{department}-{designation}-{##}",
+ "creation": "2024-08-13 16:21:44.391987",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_xouc",
+  "department",
+  "designation",
+  "amended_from",
+  "column_break_dxsf",
+  "posting_date",
+  "financial_year",
+  "section_break_bnmi",
+  "kras",
+  "section_break_zurx",
+  "kpis_and_mops",
+  "assign_tab",
+  "department_2",
+  "designation_2",
+  "employee_details_section",
+  "get_employees",
+  "employees"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_xouc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "GOAL and KRA Template",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "column_break_dxsf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "financial_year",
+   "fieldtype": "Link",
+   "label": "Financial Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fieldname": "section_break_bnmi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "kras",
+   "fieldtype": "Table",
+   "label": "KRAs",
+   "options": "KRAs"
+  },
+  {
+   "fieldname": "section_break_zurx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "kpis_and_mops",
+   "fieldtype": "Table",
+   "label": "KPIs and MOPs",
+   "options": "KPI and Mop Table"
+  },
+  {
+   "fieldname": "assign_tab",
+   "fieldtype": "Tab Break",
+   "label": "Assign"
+  },
+  {
+   "fieldname": "department_2",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "designation_2",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "employee_details_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Details"
+  },
+  {
+   "fieldname": "employees",
+   "fieldtype": "Table",
+   "label": "Employees",
+   "options": "Employee Details"
+  },
+  {
+   "fieldname": "get_employees",
+   "fieldtype": "Button",
+   "label": "Get Employees"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-08-16 11:14:55.869488",
+ "modified_by": "Administrator",
+ "module": "Bv Pms",
+ "name": "GOAL and KRA Template",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1
+}

@@ -1,0 +1,345 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:GOAL-{name1}-{FY}-{##}",
+ "creation": "2024-08-15 18:32:54.118693",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "tab_2_tab",
+  "details_section",
+  "employee",
+  "name1",
+  "company",
+  "quarter",
+  "column_break_qbyh",
+  "posting_date",
+  "financial_year",
+  "department",
+  "designation",
+  "kras__goals_section",
+  "import_kra_from_template",
+  "goal_kra_template_selected",
+  "kras",
+  "section_break_jeyj",
+  "fetch_kpis_and_mops",
+  "kpi_and_mops",
+  "kpi_and_mops_html",
+  "performance_record_section",
+  "performance_matrix",
+  "employee_details_tab",
+  "section_break_2ogv",
+  "employee_name",
+  "department_2",
+  "group",
+  "category",
+  "appraisal_period",
+  "column_break_rfaw",
+  "employee_token_id",
+  "date_of_joining",
+  "designation_2",
+  "grade",
+  "appraiser_name",
+  "date_of_appraisal",
+  "column_break_nusp",
+  "cost_centre",
+  "working_location",
+  "administrative_reporting",
+  "functional_reporting",
+  "reviewer_name",
+  "date_of_review",
+  "evaluation_tab",
+  "kra_goal_sheet",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "tab_2_tab",
+   "fieldtype": "Tab Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee Name",
+   "options": "Employee"
+  },
+  {
+   "depends_on": "eval:doc.employee",
+   "fetch_from": "employee.first_name",
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only_depends_on": "frm.doc.employee"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "quarter",
+   "fieldtype": "Select",
+   "label": "Quarter",
+   "options": "\nQ1\nQ2\nQ3\nQ4"
+  },
+  {
+   "fieldname": "column_break_qbyh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "financial_year",
+   "fieldtype": "Link",
+   "label": "Financial Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fetch_from": "employee.designation",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "kras__goals_section",
+   "fieldtype": "Section Break",
+   "label": "KRAs / Goals"
+  },
+  {
+   "fieldname": "import_kra_from_template",
+   "fieldtype": "Button",
+   "label": "Import KRA From Template"
+  },
+  {
+   "fieldname": "goal_kra_template_selected",
+   "fieldtype": "Data",
+   "label": "Goal KRA Template Selected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "kras",
+   "fieldtype": "Table",
+   "label": "KRA/Goals",
+   "options": "Performance KRA Table"
+  },
+  {
+   "fieldname": "section_break_jeyj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "performance_record_section",
+   "fieldtype": "Section Break",
+   "label": "Performance Record"
+  },
+  {
+   "fieldname": "performance_matrix",
+   "fieldtype": "Table",
+   "label": "Performance Matrix",
+   "options": "Performance Matrix"
+  },
+  {
+   "fieldname": "employee_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Employee Details"
+  },
+  {
+   "fieldname": "section_break_2ogv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Link",
+   "label": "Employee Name",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee_name.department",
+   "fieldname": "department_2",
+   "fieldtype": "Data",
+   "label": "Department"
+  },
+  {
+   "fetch_from": "employee_name.custom_group",
+   "fieldname": "group",
+   "fieldtype": "Data",
+   "label": "Group"
+  },
+  {
+   "fetch_from": "employee_name.custom_category",
+   "fieldname": "category",
+   "fieldtype": "Data",
+   "label": "Category"
+  },
+  {
+   "fieldname": "appraisal_period",
+   "fieldtype": "Data",
+   "label": "Appraisal Period"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Performance Evaluation",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_rfaw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_name.custom_employee_token",
+   "fieldname": "employee_token_id",
+   "fieldtype": "Data",
+   "label": "Employee Token Id"
+  },
+  {
+   "fetch_from": "employee_name.date_of_joining",
+   "fieldname": "date_of_joining",
+   "fieldtype": "Date",
+   "label": "Date of Joining"
+  },
+  {
+   "fetch_from": "employee_name.designation",
+   "fieldname": "designation_2",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fetch_from": "employee_name.grade",
+   "fieldname": "grade",
+   "fieldtype": "Data",
+   "label": "Grade"
+  },
+  {
+   "fetch_from": "employee_name.custom_appraiser_name",
+   "fieldname": "appraiser_name",
+   "fieldtype": "Data",
+   "label": "Appraiser Name"
+  },
+  {
+   "fieldname": "date_of_appraisal",
+   "fieldtype": "Date",
+   "label": "Date of Appraisal"
+  },
+  {
+   "fieldname": "column_break_nusp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cost_centre",
+   "fieldtype": "Data",
+   "label": "Cost Centre"
+  },
+  {
+   "fieldname": "working_location",
+   "fieldtype": "Data",
+   "label": "Working Location"
+  },
+  {
+   "fetch_from": "employee_name.custom_administrative_reporting",
+   "fieldname": "administrative_reporting",
+   "fieldtype": "Data",
+   "label": "Administrative Reporting"
+  },
+  {
+   "fetch_from": "employee_name.custom_functional_reporting",
+   "fieldname": "functional_reporting",
+   "fieldtype": "Data",
+   "label": "Functional Reporting"
+  },
+  {
+   "fetch_from": "employee_name.custom_reviewer_name",
+   "fieldname": "reviewer_name",
+   "fieldtype": "Data",
+   "label": "Reviewer Name"
+  },
+  {
+   "fieldname": "date_of_review",
+   "fieldtype": "Date",
+   "label": "Date of Review"
+  },
+  {
+   "fieldname": "evaluation_tab",
+   "fieldtype": "Tab Break",
+   "label": "Evaluation"
+  },
+  {
+   "fieldname": "kra_goal_sheet",
+   "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Performance Evaluation",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "fetch_kpis_and_mops",
+   "fieldtype": "Button",
+   "label": "Fetch KPIs and Mops"
+  },
+  {
+   "fieldname": "kpi_and_mops",
+   "fieldtype": "HTML",
+   "label": "KPI and MOPs"
+  },
+  {
+   "fieldname": "kpi_and_mops_html",
+   "fieldtype": "HTML",
+   "label": "kpi_and_mops_html"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-08-15 19:29:08.732932",
+ "modified_by": "Administrator",
+ "module": "Bv Pms",
+ "name": "Performance Evaluation",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

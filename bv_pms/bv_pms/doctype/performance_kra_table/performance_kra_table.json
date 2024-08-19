@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-15 17:10:14.212581",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kra",
+  "total_kra_weightage",
+  "completion_date",
+  "review_and_remarks",
+  "company",
+  "department"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "columns": 3,
+   "fieldname": "kra",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "KRA",
+   "options": "KRA"
+  },
+  {
+   "columns": 2,
+   "fieldname": "completion_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Completion Date"
+  },
+  {
+   "columns": 2,
+   "fieldname": "review_and_remarks",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Review and Remarks"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "kra.custom_total_kra_weightage",
+   "fieldname": "total_kra_weightage",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Total KRA Weightage"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-08-15 17:16:42.918186",
+ "modified_by": "Administrator",
+ "module": "Bv Pms",
+ "name": "Performance KRA Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

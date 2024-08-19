@@ -1,0 +1,64 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-14 15:45:24.489063",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "l5",
+  "l4",
+  "l3",
+  "l2",
+  "l1"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "l5",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "L5 / E (>100%) 130%"
+  },
+  {
+   "columns": 2,
+   "fieldname": "l4",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "L4 / VG (91%-99%) 100%"
+  },
+  {
+   "columns": 2,
+   "fieldname": "l3",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "L3 / G (76%-90%) 75%"
+  },
+  {
+   "columns": 2,
+   "fieldname": "l2",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "L2 / M (61%-75%) 45%"
+  },
+  {
+   "columns": 2,
+   "fieldname": "l1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "L1 / MI (<60%) 0%"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-08-14 15:49:15.474791",
+ "modified_by": "Administrator",
+ "module": "Bv Pms",
+ "name": "Performance Matrix",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

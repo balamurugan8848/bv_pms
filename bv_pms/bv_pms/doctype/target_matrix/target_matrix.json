@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-11 16:48:31.902710",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "q1",
+  "q2",
+  "q3",
+  "q4"
+ ],
+ "fields": [
+  {
+   "fieldname": "q1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Q1"
+  },
+  {
+   "fieldname": "q2",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Q2"
+  },
+  {
+   "fieldname": "q3",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Q3"
+  },
+  {
+   "fieldname": "q4",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Q4"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-08-11 16:49:25.869943",
+ "modified_by": "Administrator",
+ "module": "Bv Pms",
+ "name": "Target Matrix",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
