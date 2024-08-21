@@ -1,0 +1,582 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{employee_name}-{FY}-{###}",
+ "creation": "2024-08-11 17:28:23.271236",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "tab_2_tab",
+  "details_section",
+  "employee_token_id",
+  "department",
+  "group",
+  "category",
+  "appraisal_period",
+  "company",
+  "select_for_which_quarter_the_sheet_is_getting_created",
+  "q1",
+  "q2",
+  "q3",
+  "q4",
+  "full_year",
+  "column_break_qbyh",
+  "employee_name",
+  "date_of_joining",
+  "designation",
+  "grade",
+  "reporting_managerappraiser_name",
+  "date_of_appraisal",
+  "amended_from",
+  "status",
+  "column_break_rzvn",
+  "cost_centre",
+  "working_location",
+  "administrative_reporting",
+  "functional_reporting",
+  "hodreviewers_name",
+  "date_of_review",
+  "posting_date",
+  "financial_year",
+  "template_selection_section",
+  "import_kra_template",
+  "template_selected_q1",
+  "q1_assessment",
+  "quarter_1",
+  "section_break_xqka",
+  "kra_kpi_mop_q1",
+  "manager_review_q1",
+  "ratings_section",
+  "total_kra_weightage_q1",
+  "total_achieved_weightage_q1",
+  "column_break_vrhb",
+  "total_rating_score_q1",
+  "q2_assessment",
+  "quarter_2",
+  "section_break_gxtg",
+  "kra_kpi_mop_q2",
+  "manager_review_q2",
+  "quarterly_ratings_section",
+  "total_kra_weightage_q2",
+  "total_achieved_weightage_q2",
+  "column_break_dees",
+  "total_rating_score_q2",
+  "q3_assessment",
+  "quarter_3",
+  "section_break_dyrj",
+  "kra_kpi_mop_q3",
+  "manager_review_q3",
+  "quarterly_ratings_section_q3",
+  "total_kra_weightage_q3",
+  "total_achieved_weightage_q3",
+  "column_break_tsjc",
+  "total_rating_score_q3",
+  "q4_assessment",
+  "quarter_4",
+  "section_break_tqka",
+  "kra_kpi_mop_q4",
+  "manager_review_q4",
+  "quarterly_ratings_section_q4",
+  "total_kra_weightage_q4",
+  "total_achieved_weightage_q4",
+  "column_break_iead",
+  "total_rating_score_q4",
+  "fy_assessment_tab",
+  "fy_fy",
+  "section_break_erro",
+  "kra_kpi_mop_fy",
+  "import_kra_template_fy",
+  "template_selected_fy",
+  "manager_review_fy"
+ ],
+ "fields": [
+  {
+   "fieldname": "tab_2_tab",
+   "fieldtype": "Tab Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fetch_from": "employee_token_id.company",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "default": "0",
+   "fieldname": "q1",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Q1"
+  },
+  {
+   "default": "0",
+   "fieldname": "q2",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Q2"
+  },
+  {
+   "default": "0",
+   "fieldname": "q3",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Q3"
+  },
+  {
+   "default": "0",
+   "fieldname": "q4",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Q4"
+  },
+  {
+   "fieldname": "column_break_qbyh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "financial_year",
+   "fieldtype": "Link",
+   "label": "Financial Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fetch_from": "employee_token_id.department",
+   "fieldname": "department",
+   "fieldtype": "Data",
+   "label": "Department"
+  },
+  {
+   "fetch_from": "employee_token_id.designation",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fetch_from": "employee_token_id.custom_group",
+   "fieldname": "group",
+   "fieldtype": "Data",
+   "label": "Group"
+  },
+  {
+   "fetch_from": "employee_token_id.custom_category",
+   "fieldname": "category",
+   "fieldtype": "Data",
+   "label": "Category"
+  },
+  {
+   "fieldname": "appraisal_period",
+   "fieldtype": "Data",
+   "label": "Appraisal Period"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Performance Management",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "employee_name.custom_employee_token",
+   "fieldname": "employee_token_id",
+   "fieldtype": "Link",
+   "label": "Employee Token Id",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee_token_id.date_of_joining",
+   "fieldname": "date_of_joining",
+   "fieldtype": "Date",
+   "label": "Date of Joining"
+  },
+  {
+   "fetch_from": "employee_token_id.grade",
+   "fieldname": "grade",
+   "fieldtype": "Data",
+   "label": "Grade"
+  },
+  {
+   "fieldname": "date_of_appraisal",
+   "fieldtype": "Date",
+   "label": "Date of Appraisal"
+  },
+  {
+   "fieldname": "cost_centre",
+   "fieldtype": "Link",
+   "label": "Cost Centre",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "working_location",
+   "fieldtype": "Data",
+   "label": "Working Location"
+  },
+  {
+   "fetch_from": "employee_token_id.custom_administrative_reporting",
+   "fieldname": "administrative_reporting",
+   "fieldtype": "Data",
+   "label": "Administrative Reporting"
+  },
+  {
+   "fetch_from": "employee_token_id.custom_functional_reporting",
+   "fieldname": "functional_reporting",
+   "fieldtype": "Data",
+   "label": "Functional Reporting"
+  },
+  {
+   "fieldname": "date_of_review",
+   "fieldtype": "Date",
+   "label": "Date of Review"
+  },
+  {
+   "depends_on": "eval:doc.q1===1",
+   "fieldname": "q1_assessment",
+   "fieldtype": "Tab Break",
+   "label": "Q1 Assessment",
+   "read_only_depends_on": "eval:doc.manager_review === 'Done'"
+  },
+  {
+   "default": "Q1",
+   "fieldname": "quarter_1",
+   "fieldtype": "Data",
+   "label": "Quarter",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.q2===1",
+   "fieldname": "q2_assessment",
+   "fieldtype": "Tab Break",
+   "label": "Q2 Assessment"
+  },
+  {
+   "default": "Q2",
+   "fieldname": "quarter_2",
+   "fieldtype": "Data",
+   "label": "Quarter",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.q3===1",
+   "fieldname": "q3_assessment",
+   "fieldtype": "Tab Break",
+   "label": "Q3 Assessment"
+  },
+  {
+   "default": "Q3",
+   "fieldname": "quarter_3",
+   "fieldtype": "Data",
+   "label": "Quarter",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.q4===1",
+   "fieldname": "q4_assessment",
+   "fieldtype": "Tab Break",
+   "label": "Q4Assessment"
+  },
+  {
+   "default": "Q4",
+   "fieldname": "quarter_4",
+   "fieldtype": "Data",
+   "label": "Quarter",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_xqka",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "employee_token_id.custom_appraiser_name",
+   "fieldname": "reporting_managerappraiser_name",
+   "fieldtype": "Data",
+   "label": "Reporting Manager/Appraiser Name"
+  },
+  {
+   "fieldname": "column_break_rzvn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_token_id.custom_reviewer_name",
+   "fieldname": "hodreviewers_name",
+   "fieldtype": "Data",
+   "label": "HOD/Reviewer's Name"
+  },
+  {
+   "fetch_from": "employee_token_id.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "select_for_which_quarter_the_sheet_is_getting_created",
+   "fieldtype": "HTML",
+   "options": "<strong>Select for which quarter the Sheet is getting created</strong>\n"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nOn-Going\nCancelled\nCompleted"
+  },
+  {
+   "depends_on": "eval:doc.full_year===1",
+   "fieldname": "fy_assessment_tab",
+   "fieldtype": "Tab Break",
+   "label": "FY Assessment"
+  },
+  {
+   "fieldname": "fy_fy",
+   "fieldtype": "Link",
+   "label": "Financial Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fieldname": "section_break_erro",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "import_kra_template_fy",
+   "fieldtype": "Button",
+   "label": "Import KRA Template"
+  },
+  {
+   "fieldname": "template_selected_fy",
+   "fieldtype": "Data",
+   "label": "Template Selected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "manager_review_fy",
+   "fieldtype": "Select",
+   "label": "Manager Review",
+   "options": "\nDone\nNot Done"
+  },
+  {
+   "default": "0",
+   "fieldname": "full_year",
+   "fieldtype": "Check",
+   "label": "Full Year"
+  },
+  {
+   "fieldname": "kra_kpi_mop_fy",
+   "fieldtype": "Table",
+   "label": "Kras, Kpis & Mops",
+   "options": "KRA KPI and Measure of Performance"
+  },
+  {
+   "fieldname": "section_break_gxtg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "kra_kpi_mop_q2",
+   "fieldtype": "Table",
+   "label": "Kras, Kpis & Mops",
+   "options": "KRA KPI and Measure of Performance"
+  },
+  {
+   "fieldname": "manager_review_q2",
+   "fieldtype": "Select",
+   "label": "Manager Review",
+   "options": "\nDone\nNot Done"
+  },
+  {
+   "fieldname": "section_break_dyrj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "kra_kpi_mop_q3",
+   "fieldtype": "Table",
+   "label": "Kras, Kpis & Mops",
+   "options": "KRA KPI and Measure of Performance"
+  },
+  {
+   "fieldname": "manager_review_q3",
+   "fieldtype": "Select",
+   "label": "Manager Review",
+   "options": "\nDone\nNot Done"
+  },
+  {
+   "fieldname": "section_break_tqka",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "kra_kpi_mop_q4",
+   "fieldtype": "Table",
+   "label": "Kras, Kpis & Mops",
+   "options": "KRA KPI and Measure of Performance"
+  },
+  {
+   "depends_on": "                                        ",
+   "fieldname": "manager_review_q4",
+   "fieldtype": "Select",
+   "label": "Manager Review",
+   "options": "\nDone\nNot Done"
+  },
+  {
+   "fieldname": "kra_kpi_mop_q1",
+   "fieldtype": "Table",
+   "label": "Kras, Kpis & Mops",
+   "options": "KRA KPI and Measure of Performance"
+  },
+  {
+   "fieldname": "ratings_section",
+   "fieldtype": "Section Break",
+   "label": "Quarterly Ratings"
+  },
+  {
+   "fieldname": "column_break_vrhb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_kra_weightage_q1",
+   "fieldtype": "Data",
+   "label": "Total KRA Weightage"
+  },
+  {
+   "fieldname": "total_achieved_weightage_q1",
+   "fieldtype": "Data",
+   "label": "Total Achieved Weightage"
+  },
+  {
+   "fieldname": "total_rating_score_q1",
+   "fieldtype": "Data",
+   "label": "Total Rating Score"
+  },
+  {
+   "fieldname": "template_selected_q1",
+   "fieldtype": "Data",
+   "label": "Template Selected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "manager_review_q1",
+   "fieldtype": "Select",
+   "label": "Manager Review",
+   "options": "\nDone\nNot Done"
+  },
+  {
+   "fieldname": "template_selection_section",
+   "fieldtype": "Section Break",
+   "label": "Template Selection"
+  },
+  {
+   "fieldname": "quarterly_ratings_section",
+   "fieldtype": "Section Break",
+   "label": "Quarterly Ratings"
+  },
+  {
+   "fieldname": "total_kra_weightage_q2",
+   "fieldtype": "Data",
+   "label": "Total KRA Weightage"
+  },
+  {
+   "fieldname": "total_achieved_weightage_q2",
+   "fieldtype": "Data",
+   "label": "Total Achieved Weightage"
+  },
+  {
+   "fieldname": "column_break_dees",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_rating_score_q2",
+   "fieldtype": "Data",
+   "label": "Total Rating Score"
+  },
+  {
+   "fieldname": "total_kra_weightage_q3",
+   "fieldtype": "Data",
+   "label": "Total KRA Weightage"
+  },
+  {
+   "fieldname": "total_achieved_weightage_q3",
+   "fieldtype": "Data",
+   "label": "Total Achieved Weightage"
+  },
+  {
+   "fieldname": "column_break_tsjc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_rating_score_q3",
+   "fieldtype": "Data",
+   "label": "Total Rating Score"
+  },
+  {
+   "fieldname": "quarterly_ratings_section_q4",
+   "fieldtype": "Section Break",
+   "label": "Quarterly Rating"
+  },
+  {
+   "fieldname": "total_kra_weightage_q4",
+   "fieldtype": "Data",
+   "label": "Total KRA Weightage"
+  },
+  {
+   "fieldname": "total_achieved_weightage_q4",
+   "fieldtype": "Data",
+   "label": "Total Achieved Weightage"
+  },
+  {
+   "fieldname": "column_break_iead",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_rating_score_q4",
+   "fieldtype": "Data",
+   "label": "Total Rating Score"
+  },
+  {
+   "fieldname": "quarterly_ratings_section_q3",
+   "fieldtype": "Section Break",
+   "label": "Quarterly Rating"
+  },
+  {
+   "fieldname": "import_kra_template",
+   "fieldtype": "Button",
+   "label": "Import KRA Template"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-08-21 08:48:55.794849",
+ "modified_by": "Administrator",
+ "module": "Bv Pms",
+ "name": "Performance Management",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

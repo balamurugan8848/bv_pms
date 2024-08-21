@@ -7,25 +7,18 @@ frappe.ui.form.on("GOAL and KRA Template", {
       __("Update KPIs and MOPs"),
       function () {
         updateKPIsAndMOPs(frm);
+
+        // frm.fields_dict.kpis_and_mops.grid.grid_buttons
+        //   .find("button:contains('Update KPIs and MOPs')")
+        //   .hide();
+        // // Set a flag to indicate the button has been pressed
+        // frm.custom_button_pressed = true;
       }
     );
     frm.fields_dict.employees.grid.add_custom_button(
       __("Create Performance Sheet"),
       function () {
-        frappe.call({
-          method:
-            "bv_pms.bv_pms.doctype.goal_and_kra_template.goal_and_kra_template.create_performance_sheets",
-          args: {
-            docname: frm.doc.name,
-          },
-          callback: function (r) {
-            if (r.message) {
-              frappe.msgprint(
-                __("Performance Management Sheets have been created.")
-              );
-            }
-          },
-        });
+        createPerformanceSheet(frm);
       }
     );
     frm.set_query("kra", "kras", function () {
@@ -47,23 +40,6 @@ frappe.ui.form.on("GOAL and KRA Template", {
   },
   get_employees: function (frm) {
     FetchEmployees(frm);
-  },
-  after_save: function (frm) {
-    if (frm.doc.employees && frm.doc.employees.length > 0) {
-      frappe.confirm(
-        "Do you want to create a Performance Management Sheet for the selected employees?",
-        function () {
-          // If the user clicks "Yes"
-          frm.save(); // Proceed with saving the document
-          createPerformanceManagementSheet(frm); // Call the function to create the sheets
-        },
-        function () {
-          // If the user clicks "No"
-          frappe.msgprint("The document was not saved.");
-          frappe.validated = false; // Prevent saving the document
-        }
-      );
-    }
   },
 });
 
@@ -236,49 +212,77 @@ function FetchEmployees(frm) {
   }
 }
 
-// function createPerformanceSheet(frm) {
-//   frappe.confirm(
-//     "Do you want to create a Performance Management Sheet for the selected employees?",
-//     function () {
-//       // Loop through each employee in the `employees` table
-//       frm.doc.employees.forEach(function (employee) {
-//         // Create a new Performance Management Sheet
-//         frappe.call({
-//           method: "frappe.client.insert",
-//           args: {
-//             doc: {
-//               doctype: "Performance Management Sheet",
-//               employee: employee.employee,
-//               employee_name: employee.employee_name,
-//               department: employee.department,
-//               designation: employee.designation,
-//               kras: frm.doc.kras.map((kra) => ({
-//                 kra: kra.kra,
-//                 total_kra_weightage: kra.weightage,
-//               })),
-//               kpis_and_mops: frm.doc.kpis_and_mops.map((kpi) => ({
-//                 kpi: kpi.kpi,
-//                 mop: kpi.mop,
-//                 kpi_weightage: kpi.kpi_weightage,
-//                 q1: kpi.q1,
-//                 q2: kpi.q2,
-//                 q3: kpi.q3,
-//                 q4: kpi.q4,
-//               })),
-//             },
-//           },
-//           callback: function (r) {
-//             if (r.message) {
-//               frappe.msgprint(
-//                 __(
-//                   "Performance Management Sheet created for " +
-//                     employee.employee_name
-//                 )
-//               );
-//             }
-//           },
-//         });
-//       });
-//     }
-//   );
-// }
+function createPerformanceSheet(frm) {
+  frappe.confirm(
+    "Do you want to create a Performance Management Sheet for the selected employees?",
+    function () {
+      // Loop through each employee in the `employees` table
+      frm.doc.employees.forEach(function (employee) {
+        // Create a new Performance Management Sheet
+        frappe.call({
+          method: "frappe.client.insert",
+          args: {
+            doc: {
+              doctype: "Performance Management",
+              employee_token_id: employee.employee,
+              employee_name: employee.employee_name,
+              department: employee.department,
+              designation: employee.designation,
+              kras: frm.doc.kras.map((kra) => ({
+                kra: kra.kra,
+                total_kra_weightage: kra.weightage,
+              })),
+              kra_kpi_mop: buildKRAKpiMopRows(frm),
+            },
+          },
+          callback: function (r) {
+            if (r.message) {
+              frappe.msgprint(
+                __(
+                  "Performance Management Sheet created for " +
+                    employee.employee_name
+                )
+              );
+            }
+          },
+        });
+      });
+    }
+  );
+}
+
+function buildKRAKpiMopRows(frm) {
+  let rows = [];
+  let currentKRA = null;
+
+  frm.doc.kpis_and_mops.forEach(function (kpi_row) {
+    // Add KRA only for the first row of the KRA's KPIs and MOPs
+    if (kpi_row.kra !== currentKRA) {
+      currentKRA = kpi_row.kra;
+      rows.push({
+        kra: currentKRA, // Only add the KRA for the first row
+        kpi: kpi_row.kpi,
+        mop: kpi_row.mop,
+        kpi_weightage: kpi_row.kpi_weightage,
+        q1: kpi_row.q1,
+        q2: kpi_row.q2,
+        q3: kpi_row.q3,
+        q4: kpi_row.q4,
+      });
+    } else {
+      // For subsequent rows, don't add the KRA field
+      rows.push({
+        kra: "", // Leave KRA empty for subsequent rows
+        kpi: kpi_row.kpi,
+        mop: kpi_row.mop,
+        kpi_weightage: kpi_row.kpi_weightage,
+        q1: kpi_row.q1,
+        q2: kpi_row.q2,
+        q3: kpi_row.q3,
+        q4: kpi_row.q4,
+      });
+    }
+  });
+
+  return rows;
+}

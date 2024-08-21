@@ -1,0 +1,202 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-19 18:58:18.289100",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_7lcl",
+  "kra",
+  "kpi",
+  "mop",
+  "kpi_weightage",
+  "kra_weightage",
+  "target_matrix",
+  "column_break_rc9f",
+  "company",
+  "performance_matrix_lop",
+  "review_remarks",
+  "section_break_jnab",
+  "q1",
+  "q2",
+  "q3",
+  "q4",
+  "html_izsj",
+  "column_break_sxkj",
+  "e",
+  "vg",
+  "g",
+  "m",
+  "mi",
+  "rating_section",
+  "quarterly_lop_by_employee",
+  "quarterly_lop_by_manager",
+  "column_break_pnra",
+  "rating_score"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_7lcl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "kra",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "KRA/Goal"
+  },
+  {
+   "fieldname": "kpi",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "KPI (Key Performance Indicator)"
+  },
+  {
+   "fieldname": "mop",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "MOP (Measure of Performance)"
+  },
+  {
+   "fieldname": "kpi_weightage",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "KPI Weightage"
+  },
+  {
+   "fieldname": "kra_weightage",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "KRA Weightage"
+  },
+  {
+   "fieldname": "target_matrix",
+   "fieldtype": "Data",
+   "label": "Target Matrix"
+  },
+  {
+   "fieldname": "column_break_rc9f",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "performance_matrix_lop",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Performance Matrix (LOP)"
+  },
+  {
+   "fieldname": "quarterly_lop_by_employee",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Quarterly LOP by Employee",
+   "options": "\nL1\nL2\nL3\nL4\nL5"
+  },
+  {
+   "fieldname": "quarterly_lop_by_manager",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Quarterly LOP by Manager",
+   "options": "\nL1\nL2\nL3\nL4\nL5"
+  },
+  {
+   "fieldname": "rating_score",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Rating Score"
+  },
+  {
+   "fieldname": "review_remarks",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Review Remarks"
+  },
+  {
+   "fieldname": "section_break_jnab",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Target Vs Performance"
+  },
+  {
+   "fieldname": "q1",
+   "fieldtype": "Data",
+   "label": "Q1"
+  },
+  {
+   "fieldname": "q2",
+   "fieldtype": "Data",
+   "label": "Q2"
+  },
+  {
+   "fieldname": "q3",
+   "fieldtype": "Data",
+   "label": "Q3"
+  },
+  {
+   "fieldname": "q4",
+   "fieldtype": "Data",
+   "label": "Q4"
+  },
+  {
+   "fieldname": "column_break_sxkj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "e",
+   "fieldtype": "Data",
+   "label": "E"
+  },
+  {
+   "fieldname": "vg",
+   "fieldtype": "Data",
+   "label": "VG"
+  },
+  {
+   "fieldname": "g",
+   "fieldtype": "Data",
+   "label": "G"
+  },
+  {
+   "fieldname": "m",
+   "fieldtype": "Data",
+   "label": "M"
+  },
+  {
+   "fieldname": "mi",
+   "fieldtype": "Data",
+   "label": "MI"
+  },
+  {
+   "fieldname": "rating_section",
+   "fieldtype": "Section Break",
+   "label": "Rating"
+  },
+  {
+   "fieldname": "column_break_pnra",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "html_izsj",
+   "fieldtype": "HTML",
+   "options": "\n\n<style>\ntable, th, td {\n  border:1px solid black;\n}\n</style>\n\n\n<h2>A basic HTML table</h2>\n\n<table style=\"width:100%;\">\n  <tbody><tr>\n    <th>Company</th>\n    <th>Contact</th>\n    <th>Country</th>\n  </tr>\n  <tr>\n    <td>Alfreds Futterkiste</td>\n    <td>Maria Anders</td>\n    <td>Germany</td>\n  </tr>\n  <tr>\n    <td>Centro comercial Moctezuma</td>\n    <td>Francisco Chang</td>\n    <td>Mexico</td>\n  </tr>\n</tbody></table>\n\n<p>To understand the example better, we have added borders to the table.</p>\n\n\n\n\n"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-08-20 18:56:25.473997",
+ "modified_by": "Administrator",
+ "module": "Bv Pms",
+ "name": "KRA KPI and Measure of Performance",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

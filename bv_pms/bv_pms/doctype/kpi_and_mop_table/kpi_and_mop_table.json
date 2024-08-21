@@ -68,16 +68,15 @@
   },
   {
    "fieldname": "kra",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "KRA",
-   "options": "KRA"
+   "label": "KRA"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-08-16 13:38:01.324200",
+ "modified": "2024-08-19 21:35:40.703632",
  "modified_by": "Administrator",
  "module": "Bv Pms",
  "name": "KPI and Mop Table",
