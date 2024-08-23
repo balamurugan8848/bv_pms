@@ -7,12 +7,6 @@ frappe.ui.form.on("GOAL and KRA Template", {
       __("Update KPIs and MOPs"),
       function () {
         updateKPIsAndMOPs(frm);
-
-        // frm.fields_dict.kpis_and_mops.grid.grid_buttons
-        //   .find("button:contains('Update KPIs and MOPs')")
-        //   .hide();
-        // // Set a flag to indicate the button has been pressed
-        // frm.custom_button_pressed = true;
       }
     );
     frm.fields_dict.employees.grid.add_custom_button(
@@ -94,82 +88,53 @@ frappe.ui.form.on("GOAL and KRA Template", {
 // });
 function updateKPIsAndMOPs(frm) {
   frm.clear_table("kpis_and_mops");
-  frm.refresh_field("kpis_and_mops");
 
-  frm.doc.kras.forEach(function (kra_row) {
-    if (kra_row.kra) {
-      fetchKPIsAndMOPs(frm, kra_row);
+  function processKRAs(index) {
+    if (index >= frm.doc.kras.length) {
+      frm.refresh_field("kpis_and_mops");
+      return;
     }
-  });
-}
 
-function updateKPIsAndMOPs(frm) {
-  let existingKPIsAndMOPs = frm.doc.kpis_and_mops || [];
-  frm.clear_table("kpis_and_mops");
-
-  frm.doc.kras.forEach(function (kra_row) {
+    let kra_row = frm.doc.kras[index];
     if (kra_row.kra) {
-      // Find existing KPIs and MOPs for this KRA
-      let existingForKRA = existingKPIsAndMOPs.filter(
-        (row) => row.kra === kra_row.kra
-      );
-      if (existingForKRA.length > 0) {
-        // If existing, add them back in the same order
-        existingForKRA.forEach((row) => {
-          frm.add_child("kpis_and_mops", row);
-        });
-      } else {
-        // If not existing, fetch new ones
-        fetchKPIsAndMOPs(frm, kra_row);
-      }
+      frappe.call({
+        method: "frappe.client.get",
+        args: {
+          doctype: "KRA",
+          name: kra_row.kra,
+        },
+        callback: function (response) {
+          if (response.message) {
+            let kra_doc = response.message;
+            if (
+              kra_doc.custom_kpi_and_mop &&
+              kra_doc.custom_kpi_and_mop.length
+            ) {
+              kra_doc.custom_kpi_and_mop.forEach(function (kpi_mop) {
+                let new_row = frm.add_child("kpis_and_mops");
+                new_row.kra = kra_row.kra;
+                new_row.kpi = kpi_mop.kpi;
+                new_row.mop = kpi_mop.mop;
+                new_row.kpi_weightage = kpi_mop.kpi_weightage;
+                new_row.kra_weightage = kpi_mop.kra_weightage;
+                new_row.q1 = kpi_mop.q1;
+                new_row.q2 = kpi_mop.q2;
+                new_row.q3 = kpi_mop.q3;
+                new_row.q4 = kpi_mop.q4;
+              });
+            }
+          }
+          processKRAs(index + 1);
+        },
+      });
+    } else {
+      processKRAs(index + 1);
     }
-  });
+  }
 
-  frm.refresh_field("kpis_and_mops");
+  processKRAs(0);
 }
 
-function fetchKPIsAndMOPs(frm, kra_row) {
-  frappe.call({
-    method: "frappe.client.get",
-    args: {
-      doctype: "KRA",
-      name: kra_row.kra,
-    },
-    callback: function (response) {
-      if (response.message) {
-        let kra_doc = response.message;
-        if (kra_doc.custom_kpi_and_mop && kra_doc.custom_kpi_and_mop.length) {
-          kra_doc.custom_kpi_and_mop.forEach(function (kpi_mop) {
-            let new_row = frm.add_child("kpis_and_mops");
-            new_row.kra = kra_row.kra;
-            new_row.kpi = kpi_mop.kpi;
-            new_row.mop = kpi_mop.mop;
-            new_row.kpi_weightage = kpi_mop.kpi_weightage;
-            new_row.q1 = kpi_mop.q1;
-            new_row.q2 = kpi_mop.q2;
-            new_row.q3 = kpi_mop.q3;
-            new_row.q4 = kpi_mop.q4;
-          });
-          frm.refresh_field("kpis_and_mops");
-        } else {
-          frappe.msgprint(
-            __(`No custom KPIs and MOPs found for KRA: ${kra_row.kra}`)
-          );
-        }
-      } else {
-        frappe.msgprint(__(`KRA ${kra_row.kra} not found`));
-      }
-    },
-  });
-}
-
-function removeRelatedKPIsAndMOPs(frm) {
-  let kras_set = new Set(frm.doc.kras.map((row) => row.kra));
-  frm.doc.kpis_and_mops = frm.doc.kpis_and_mops.filter((row) =>
-    kras_set.has(row.kra)
-  );
-  frm.refresh_field("kpis_and_mops");
-}
 function FetchEmployees(frm) {
   if (frm.doc.department_2 && frm.doc.designation_2) {
     frappe.call({
@@ -184,10 +149,7 @@ function FetchEmployees(frm) {
       },
       callback: function (r) {
         if (r.message) {
-          // Clear existing rows in the employee_details table
           frm.clear_table("employees");
-
-          // Loop through the fetched employees and add them to the child table
           r.message.forEach(function (employee) {
             var row = frm.add_child("employees");
             row.employee = employee.name;
@@ -195,8 +157,6 @@ function FetchEmployees(frm) {
             row.department = employee.department;
             row.designation = employee.designation;
           });
-
-          // Refresh the employee_details field to display the changes
           frm.refresh_field("employees");
         } else {
           frappe.msgprint(
@@ -216,25 +176,35 @@ function createPerformanceSheet(frm) {
   frappe.confirm(
     "Do you want to create a Performance Management Sheet for the selected employees?",
     function () {
-      // Loop through each employee in the `employees` table
       frm.doc.employees.forEach(function (employee) {
-        // Create a new Performance Management Sheet
+        let doc = {
+          doctype: "Performance Management",
+          employee_token_id: employee.employee,
+          employee_name: employee.employee_name,
+          department: employee.department,
+          designation: employee.designation,
+          kras: frm.doc.kras.map((kra) => ({
+            kra: kra.kra,
+            total_kra_weightage: kra.weightage,
+          })),
+        };
+
+        // Initialize quarter-specific fields
+        doc.q1 = 0;
+        doc.q2 = 0;
+        doc.q3 = 0;
+        doc.q4 = 0;
+        doc.kra_kpi_mop_q1 = [];
+        doc.kra_kpi_mop_q2 = [];
+        doc.kra_kpi_mop_q3 = [];
+        doc.kra_kpi_mop_q4 = [];
+
+        // Distribute to quarter tables
+        distributeToQuarterTables(doc, frm.doc.kpis_and_mops);
+
         frappe.call({
           method: "frappe.client.insert",
-          args: {
-            doc: {
-              doctype: "Performance Management",
-              employee_token_id: employee.employee,
-              employee_name: employee.employee_name,
-              department: employee.department,
-              designation: employee.designation,
-              kras: frm.doc.kras.map((kra) => ({
-                kra: kra.kra,
-                total_kra_weightage: kra.weightage,
-              })),
-              kra_kpi_mop: buildKRAKpiMopRows(frm),
-            },
-          },
+          args: { doc: doc },
           callback: function (r) {
             if (r.message) {
               frappe.msgprint(
@@ -251,38 +221,71 @@ function createPerformanceSheet(frm) {
   );
 }
 
-function buildKRAKpiMopRows(frm) {
-  let rows = [];
-  let currentKRA = null;
+function distributeToQuarterTables(doc, kpisAndMops) {
+  ["q1", "q2", "q3", "q4"].forEach(function (quarterKey) {
+    let quarterTable = `kra_kpi_mop_${quarterKey}`;
+    let totalKpiWeightage = 0;
+    let totalKraWeightage = 0;
+    let previousKra = null;
+    let isFirstKraRow = true; // Flag to track the first row of each KRA
 
-  frm.doc.kpis_and_mops.forEach(function (kpi_row) {
-    // Add KRA only for the first row of the KRA's KPIs and MOPs
-    if (kpi_row.kra !== currentKRA) {
-      currentKRA = kpi_row.kra;
-      rows.push({
-        kra: currentKRA, // Only add the KRA for the first row
-        kpi: kpi_row.kpi,
-        mop: kpi_row.mop,
-        kpi_weightage: kpi_row.kpi_weightage,
-        q1: kpi_row.q1,
-        q2: kpi_row.q2,
-        q3: kpi_row.q3,
-        q4: kpi_row.q4,
-      });
-    } else {
-      // For subsequent rows, don't add the KRA field
-      rows.push({
-        kra: "", // Leave KRA empty for subsequent rows
-        kpi: kpi_row.kpi,
-        mop: kpi_row.mop,
-        kpi_weightage: kpi_row.kpi_weightage,
-        q1: kpi_row.q1,
-        q2: kpi_row.q2,
-        q3: kpi_row.q3,
-        q4: kpi_row.q4,
-      });
-    }
+    kpisAndMops.forEach(function (item, index) {
+      // Process for the specific quarter or all quarters if none selected
+      if (item[quarterKey] || (!item.q1 && !item.q2 && !item.q3 && !item.q4)) {
+        doc[quarterKey] = 1;
+
+        // If the KRA changes, add the "Total" row and reset the flag
+        if (previousKra && previousKra !== item.kra) {
+          addTotalRow(doc, quarterTable, totalKpiWeightage, totalKraWeightage);
+          totalKpiWeightage = 0;
+          totalKraWeightage = 0;
+          isFirstKraRow = true; // Reset flag for the new KRA group
+        }
+
+        // Add the current row with KRA only for the first row of this KRA group
+        addRowToQuarterTable(
+          doc,
+          item,
+          quarterTable,
+          quarterKey,
+          isFirstKraRow
+        );
+
+        // Accumulate weightages for the "Total" row
+        totalKpiWeightage += item.kpi_weightage || 0;
+        totalKraWeightage += item.kra_weightage || 0;
+
+        // If it's the last item, also add the "Total" row
+        if (index === kpisAndMops.length - 1) {
+          addTotalRow(doc, quarterTable, totalKpiWeightage, totalKraWeightage);
+        }
+
+        // Update the previous KRA and flag
+        previousKra = item.kra;
+        isFirstKraRow = false; // Only the first row will show the KRA
+      }
+    });
   });
+}
 
-  return rows;
+function addRowToQuarterTable(doc, item, tableField, quarterKey, showKra) {
+  doc[tableField].push({
+    kra: showKra ? item.kra : "", // Show KRA only for the first row of each group
+    kpi: item.kpi,
+    mop: item.mop,
+    kpi_weightage: item.kpi_weightage,
+    kra_weightage: item.kra_weightage,
+    target_matrix: item[quarterKey],
+  });
+}
+
+function addTotalRow(doc, tableField, totalKpiWeightage, totalKraWeightage) {
+  doc[tableField].push({
+    kra: "", // Empty to indicate it's a total row
+    kpi: "", // No KPI
+    mop: "Total", // Indicate this is a total row
+    kpi_weightage: totalKpiWeightage, // Display the total KPI weightage
+    kra_weightage: totalKraWeightage, // Display the total KRA weightage
+    target_matrix: "", // No target matrix for this row
+  });
 }

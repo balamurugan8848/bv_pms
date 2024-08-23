@@ -40,47 +40,59 @@
   "financial_year",
   "template_selection_section",
   "import_kra_template",
-  "template_selected_q1",
+  "template_selected",
   "q1_assessment",
   "quarter_1",
   "section_break_xqka",
   "kra_kpi_mop_q1",
   "manager_review_q1",
   "ratings_section",
-  "total_kra_weightage_q1",
-  "total_achieved_weightage_q1",
+  "total_kpi_weightage_q1",
+  "level_of_performance_q1",
+  "overall_lop_rating_q1",
   "column_break_vrhb",
   "total_rating_score_q1",
+  "eligible_variable_payout_amount_q1",
+  "actual_variable_payout_amount_q1",
   "q2_assessment",
   "quarter_2",
   "section_break_gxtg",
   "kra_kpi_mop_q2",
   "manager_review_q2",
   "quarterly_ratings_section",
-  "total_kra_weightage_q2",
-  "total_achieved_weightage_q2",
+  "total_kpi_weightage_q2",
+  "level_of_performance_q2",
+  "overall_lop_rating_q2",
   "column_break_dees",
   "total_rating_score_q2",
+  "eligible_variable_payout_amount_q2",
+  "actual_variable_payout_amount_q2",
   "q3_assessment",
   "quarter_3",
   "section_break_dyrj",
   "kra_kpi_mop_q3",
   "manager_review_q3",
   "quarterly_ratings_section_q3",
-  "total_kra_weightage_q3",
-  "total_achieved_weightage_q3",
+  "total_kpi_weightage_q3",
+  "level_of_performance_q3",
+  "overall_lop_rating_q3",
   "column_break_tsjc",
   "total_rating_score_q3",
+  "eligible_variable_payout_amount_q3",
+  "actual_variable_payout_amount_q3",
   "q4_assessment",
   "quarter_4",
   "section_break_tqka",
   "kra_kpi_mop_q4",
   "manager_review_q4",
   "quarterly_ratings_section_q4",
-  "total_kra_weightage_q4",
-  "total_achieved_weightage_q4",
+  "total_kpi_weightage_q4",
+  "level_of_performance_q4",
+  "overall_lop_rating_q4",
   "column_break_iead",
   "total_rating_score_q4",
+  "eligible_variable_payout_amount_q4",
+  "actual_variable_payout_amount_q4",
   "fy_assessment_tab",
   "fy_fy",
   "section_break_erro",
@@ -298,7 +310,8 @@
   },
   {
    "fieldname": "section_break_xqka",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "read_only_depends_on": "eval:doc.manager_review_q1 == \"Done\""
   },
   {
    "fetch_from": "employee_token_id.custom_appraiser_name",
@@ -443,25 +456,10 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "total_kra_weightage_q1",
-   "fieldtype": "Data",
-   "label": "Total KRA Weightage"
-  },
-  {
-   "fieldname": "total_achieved_weightage_q1",
-   "fieldtype": "Data",
-   "label": "Total Achieved Weightage"
-  },
-  {
    "fieldname": "total_rating_score_q1",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Total Rating Score"
-  },
-  {
-   "fieldname": "template_selected_q1",
-   "fieldtype": "Data",
-   "label": "Template Selected",
-   "read_only": 1
   },
   {
    "fieldname": "manager_review_q1",
@@ -480,33 +478,14 @@
    "label": "Quarterly Ratings"
   },
   {
-   "fieldname": "total_kra_weightage_q2",
-   "fieldtype": "Data",
-   "label": "Total KRA Weightage"
-  },
-  {
-   "fieldname": "total_achieved_weightage_q2",
-   "fieldtype": "Data",
-   "label": "Total Achieved Weightage"
-  },
-  {
    "fieldname": "column_break_dees",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "total_rating_score_q2",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Total Rating Score"
-  },
-  {
-   "fieldname": "total_kra_weightage_q3",
-   "fieldtype": "Data",
-   "label": "Total KRA Weightage"
-  },
-  {
-   "fieldname": "total_achieved_weightage_q3",
-   "fieldtype": "Data",
-   "label": "Total Achieved Weightage"
   },
   {
    "fieldname": "column_break_tsjc",
@@ -515,6 +494,7 @@
   {
    "fieldname": "total_rating_score_q3",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Total Rating Score"
   },
   {
@@ -523,22 +503,13 @@
    "label": "Quarterly Rating"
   },
   {
-   "fieldname": "total_kra_weightage_q4",
-   "fieldtype": "Data",
-   "label": "Total KRA Weightage"
-  },
-  {
-   "fieldname": "total_achieved_weightage_q4",
-   "fieldtype": "Data",
-   "label": "Total Achieved Weightage"
-  },
-  {
    "fieldname": "column_break_iead",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "total_rating_score_q4",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Total Rating Score"
   },
   {
@@ -550,12 +521,122 @@
    "fieldname": "import_kra_template",
    "fieldtype": "Button",
    "label": "Import KRA Template"
+  },
+  {
+   "fieldname": "total_kpi_weightage_q1",
+   "fieldtype": "Data",
+   "label": "Total KPI Weightage"
+  },
+  {
+   "fieldname": "total_kpi_weightage_q2",
+   "fieldtype": "Data",
+   "label": "Total KPI Weightage"
+  },
+  {
+   "fieldname": "total_kpi_weightage_q3",
+   "fieldtype": "Data",
+   "label": "Total KPI Weightage"
+  },
+  {
+   "fieldname": "total_kpi_weightage_q4",
+   "fieldtype": "Data",
+   "label": "Total KPI Weightage"
+  },
+  {
+   "fieldname": "level_of_performance_q1",
+   "fieldtype": "Select",
+   "label": "Level of Performance",
+   "options": "\nL1\nL2\nL3\nL4\nL5"
+  },
+  {
+   "fieldname": "overall_lop_rating_q1",
+   "fieldtype": "Int",
+   "label": "Overall LOP Rating"
+  },
+  {
+   "fieldname": "eligible_variable_payout_amount_q1",
+   "fieldtype": "Currency",
+   "label": "Eligible Variable Payout Amount"
+  },
+  {
+   "fieldname": "actual_variable_payout_amount_q1",
+   "fieldtype": "Currency",
+   "label": "Actual Variable Payout Amount"
+  },
+  {
+   "fieldname": "level_of_performance_q2",
+   "fieldtype": "Select",
+   "label": "Level of Performance",
+   "options": "\nL1\nL2\nL3\nL4\nL5"
+  },
+  {
+   "fieldname": "overall_lop_rating_q2",
+   "fieldtype": "Int",
+   "label": "Overall LOP Rating"
+  },
+  {
+   "fieldname": "eligible_variable_payout_amount_q2",
+   "fieldtype": "Currency",
+   "label": "Eligible Variable Payout Amount"
+  },
+  {
+   "fieldname": "actual_variable_payout_amount_q2",
+   "fieldtype": "Currency",
+   "label": "Actual Variable Payout Amount"
+  },
+  {
+   "fieldname": "level_of_performance_q3",
+   "fieldtype": "Select",
+   "label": "Level of Performance",
+   "options": "\nL1\nL2\nL3\nL4\nL5"
+  },
+  {
+   "fieldname": "overall_lop_rating_q3",
+   "fieldtype": "Int",
+   "label": "Overall LOP Rating"
+  },
+  {
+   "fieldname": "eligible_variable_payout_amount_q3",
+   "fieldtype": "Currency",
+   "label": "Eligible Variable Payout Amount"
+  },
+  {
+   "fieldname": "actual_variable_payout_amount_q3",
+   "fieldtype": "Currency",
+   "label": "Actual Variable Payout Amount"
+  },
+  {
+   "fieldname": "level_of_performance_q4",
+   "fieldtype": "Select",
+   "label": "Level of Performance",
+   "options": "\nL1\nL2\nL3\nL4\nL5"
+  },
+  {
+   "fieldname": "overall_lop_rating_q4",
+   "fieldtype": "Int",
+   "label": "Overall LOP Rating"
+  },
+  {
+   "fieldname": "eligible_variable_payout_amount_q4",
+   "fieldtype": "Currency",
+   "label": "Eligible Variable Payout Amount"
+  },
+  {
+   "fieldname": "actual_variable_payout_amount_q4",
+   "fieldtype": "Currency",
+   "label": "Actual Variable Payout Amount"
+  },
+  {
+   "fieldname": "template_selected",
+   "fieldtype": "Data",
+   "label": "Template Selected",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-21 08:48:55.794849",
+ "modified": "2024-08-23 18:20:21.198922",
  "modified_by": "Administrator",
  "module": "Bv Pms",
  "name": "Performance Management",

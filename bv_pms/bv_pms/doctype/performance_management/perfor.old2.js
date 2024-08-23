@@ -1,32 +1,8 @@
 frappe.ui.form.on("Performance Management", {
-  // onload: function (frm) {
-  //   frappe.call({
-  //     method: "frappe.client.get_value",
-  //     args: {
-  //       doctype: "Employee",
-  //       filters: {
-  //         user_id: frappe.session.user,
-  //       },
-  //       fieldname: "name",
-  //     },
-  //     callback: function (r) {
-  //       if (r.message) {
-  //         frm.set_value("employee_token_id", r.message.name);
-  //         frm.set_df_property("employee_token_id", "read_only", 0); // Make the field read-only if needed
-  //       }
-  //     },
-  //   });
-  // },
-  // employee_token_id: function (frm) {
-  //   // Restrict the employee field to only show the logged-in user's employee record
-  //   frm.fields_dict["employee_token_id"].get_query = function (doc) {
-  //     return {
-  //       filters: {
-  //         user_id: frappe.session.user,
-  //       },
-  //     };
-  //   };
-  // },
+  onload: function (frm) {
+    // updateTotalKPIWeightage(frm);
+    // updateOverallLOPRating(frm);
+  },
   before_save: function (frm) {
     updateTotalKPIWeightage(frm);
     // updateOverallLOPRating(frm);

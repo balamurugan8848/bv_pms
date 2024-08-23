@@ -13,7 +13,8 @@
   "q2",
   "q3",
   "q4",
-  "kra"
+  "kra",
+  "kra_weightage"
  ],
  "fields": [
   {
@@ -34,7 +35,7 @@
   {
    "columns": 1,
    "fieldname": "kpi_weightage",
-   "fieldtype": "Percent",
+   "fieldtype": "Int",
    "in_list_view": 1,
    "label": "KPI Weightage"
   },
@@ -71,12 +72,17 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "KRA"
+  },
+  {
+   "fieldname": "kra_weightage",
+   "fieldtype": "Int",
+   "label": "KRA weightage"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-08-19 21:35:40.703632",
+ "modified": "2024-08-22 08:12:12.254815",
  "modified_by": "Administrator",
  "module": "Bv Pms",
  "name": "KPI and Mop Table",

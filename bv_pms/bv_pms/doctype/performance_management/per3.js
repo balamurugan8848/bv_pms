@@ -1,32 +1,8 @@
 frappe.ui.form.on("Performance Management", {
-  // onload: function (frm) {
-  //   frappe.call({
-  //     method: "frappe.client.get_value",
-  //     args: {
-  //       doctype: "Employee",
-  //       filters: {
-  //         user_id: frappe.session.user,
-  //       },
-  //       fieldname: "name",
-  //     },
-  //     callback: function (r) {
-  //       if (r.message) {
-  //         frm.set_value("employee_token_id", r.message.name);
-  //         frm.set_df_property("employee_token_id", "read_only", 0); // Make the field read-only if needed
-  //       }
-  //     },
-  //   });
-  // },
-  // employee_token_id: function (frm) {
-  //   // Restrict the employee field to only show the logged-in user's employee record
-  //   frm.fields_dict["employee_token_id"].get_query = function (doc) {
-  //     return {
-  //       filters: {
-  //         user_id: frappe.session.user,
-  //       },
-  //     };
-  //   };
-  // },
+  onload: function (frm) {
+    // updateTotalKPIWeightage(frm);
+    // updateOverallLOPRating(frm);
+  },
   before_save: function (frm) {
     updateTotalKPIWeightage(frm);
     // updateOverallLOPRating(frm);
@@ -124,99 +100,91 @@ frappe.ui.form.on("KRA KPI and Measure of Performance", {
 });
 
 function distributeToQuarterTables(frm, kpisAndMops) {
-  let kraTracker = {
-    q1: new Set(),
-    q2: new Set(),
-    q3: new Set(),
-    q4: new Set(),
-  };
+  // Define the quarter tables
+  const quarterTables = ["q1", "q2", "q3", "q4"];
 
-  kpisAndMops.forEach(function (item) {
-    let addToAllQuarters = !item.q1 && !item.q2 && !item.q3 && !item.q4;
+  // Iterate over each quarter
+  quarterTables.forEach(function (quarterKey) {
+    let quarterTableField = `kra_kpi_mop_${quarterKey}`;
+    let totalKpiWeightage = 0;
+    let totalKraWeightage = 0;
+    let previousKra = null;
+    let isFirstRowOfKra = true;
 
-    // Process for Q1
-    if (item.q1 || addToAllQuarters) {
-      frm.set_value("q1", 1); // Check the Q1 checkbox
-      addRowToQuarterTable(
-        frm,
-        item,
-        "kra_kpi_mop_q1",
-        "q1",
-        kraTracker.q1,
-        addToAllQuarters
-      );
-    }
-    // Process for Q2
-    if (item.q2 || addToAllQuarters) {
-      frm.set_value("q2", 1); // Check the Q2 checkbox
-      addRowToQuarterTable(
-        frm,
-        item,
-        "kra_kpi_mop_q2",
-        "q2",
-        kraTracker.q2,
-        addToAllQuarters
-      );
-    }
-    // Process for Q3
-    if (item.q3 || addToAllQuarters) {
-      frm.set_value("q3", 1); // Check the Q3 checkbox
-      addRowToQuarterTable(
-        frm,
-        item,
-        "kra_kpi_mop_q3",
-        "q3",
-        kraTracker.q3,
-        addToAllQuarters
-      );
-    }
-    // Process for Q4
-    if (item.q4 || addToAllQuarters) {
-      frm.set_value("q4", 1); // Check the Q4 checkbox
-      addRowToQuarterTable(
-        frm,
-        item,
-        "kra_kpi_mop_q4",
-        "q4",
-        kraTracker.q4,
-        addToAllQuarters
-      );
-    }
+    // Clear existing rows in the quarter table
+    frm.clear_table(quarterTableField);
+
+    kpisAndMops.forEach(function (item, index) {
+      // Check if the item belongs to the current quarter or is not specified for any quarter
+      if (item[quarterKey] || (!item.q1 && !item.q2 && !item.q3 && !item.q4)) {
+        // Set the quarter checkbox
+        frm.set_value(quarterKey, 1);
+
+        // Add the "Total" row if the KRA changes
+        if (previousKra && previousKra !== item.kra) {
+          addTotalRow(
+            frm,
+            quarterTableField,
+            totalKpiWeightage,
+            totalKraWeightage
+          );
+          totalKpiWeightage = 0;
+          totalKraWeightage = 0;
+          isFirstRowOfKra = true; // Reset flag for the new KRA group
+        }
+
+        // Add row with KRA only for the first row of each KRA group
+        addRowToQuarterTable(
+          frm,
+          item,
+          quarterTableField,
+          quarterKey,
+          isFirstRowOfKra
+        );
+
+        // Accumulate weightages
+        totalKpiWeightage += item.kpi_weightage || 0;
+        totalKraWeightage += item.kra_weightage || 0;
+
+        // Add the "Total" row if it’s the last item
+        if (index === kpisAndMops.length - 1) {
+          addTotalRow(
+            frm,
+            quarterTableField,
+            totalKpiWeightage,
+            totalKraWeightage
+          );
+        }
+
+        // Update previous KRA and flag
+        previousKra = item.kra;
+        isFirstRowOfKra = false; // No longer the first row of the KRA group
+      }
+    });
   });
+
+  // Refresh the fields to update the UI
+  frm.refresh_fields();
 }
 
-// Add row to the appropriate quarter table
-function addRowToQuarterTable(
-  frm,
-  item,
-  tableField,
-  quarterKey,
-  kraTracker,
-  addToAllQuarters
-) {
-  // Check if the KRA has already been added to this quarter
-  let existingRows = frm.doc[tableField].filter((row) => row.kra === item.kra);
+function addRowToQuarterTable(frm, item, tableField, quarterKey, showKra) {
+  let row = frm.add_child(tableField);
+  row.kra = showKra ? item.kra : ""; // Show KRA only for the first row
+  row.kpi = item.kpi;
+  row.mop = item.mop;
+  row.kpi_weightage = item.kpi_weightage;
+  row.kra_weightage = item.kra_weightage;
+  row.target_matrix = item[quarterKey];
+}
 
-  if (existingRows.length === 0) {
-    // Add KRA only if not already present
-    let kraRow = frm.add_child(tableField);
-    kraRow.kra = item.kra;
-    kraRow.kpi = item.kpi;
-    kraRow.mop = item.mop;
-    kraRow.kpi_weightage = item.kpi_weightage;
-    kraRow.kra_weightage = item.kra_weightage;
-    kraRow.target_matrix = item[quarterKey]; // Set the target matrix field
-    kraTracker.add(item.kra);
-  } else {
-    // Add subsequent rows with empty KRA if needed
-    let kraRow = frm.add_child(tableField);
-    kraRow.kra = ""; // Empty to avoid duplication of KRA
-    kraRow.kpi = item.kpi;
-    kraRow.mop = item.mop;
-    kraRow.kpi_weightage = item.kpi_weightage;
-    kraRow.kra_weightage = item.kra_weightage;
-    kraRow.target_matrix = item[quarterKey]; // Set the target matrix field
-  }
+function addTotalRow(frm, tableField, totalKpiWeightage, totalKraWeightage) {
+  let row = frm.add_child(tableField);
+  row.kra = ""; // Empty for total row
+  row.kpi = ""; // No KPI for total row
+  row.mop = "Total"; // Indicate this is a total row
+  row.kpi_weightage = totalKpiWeightage; // Total KPI weightage
+  row.kra_weightage = totalKraWeightage; // Total KRA weightage
+  row.target_matrix = ""; // No target matrix for total row
 }
 
 function updateTotalKPIWeightage(frm) {
